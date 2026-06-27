@@ -4,7 +4,6 @@ import org.com.app.model.Game;
 import org.com.app.model.Move;
 import org.com.app.model.Player;
 import org.com.app.service.GameService;
-import org.com.app.strategies.botplayingstrategies.BotPlayingStrategy;
 
 import java.util.Scanner;
 

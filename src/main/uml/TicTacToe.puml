@@ -9,6 +9,7 @@ class Game {
 - GameState state
 - Player winner
 - List<Move> moves
+- List<WinningStrategy> winningStrategies
 }
 
 enum GameState {
@@ -20,6 +21,7 @@ Game ..> GameState
 Game *--> Board
 Game *--> Move
 Game o--> Player
+Game --> WinningStrategy
 
 abstract class Player {
 - String name
@@ -37,6 +39,7 @@ class Board {
 - int size
 - List<List<Cell>> cells
 
++ void initializeCells(int size)
 + void printBoard()
 }
 
@@ -59,7 +62,10 @@ Cell o--> Player
 
 class BotPlayer extends Player {
 - BotDifficultyLevel level
+- BotPlayingStrategy botPlayingStrategy
 }
+BotPlayer --> BotPlayingStrategy
+
 
 
 class HumanPlayer extends Player {
@@ -74,7 +80,6 @@ Move --> Player
 
 class Symbol {
 - char character
-- String color
 }
 Player --> Symbol
 
@@ -117,6 +122,32 @@ class ColumnWinningStrategy implements WinningStrategy {
 
 class DiagonalWinningStrategy implements WinningStrategy {
 + boolean checkWinner(Board board, Move move)
+}
+
+class GameService{
+Game createGame(int size, List<Player> players)
+Move getMove(Game game, Player player, Scanner sc)
+boolean checkWinner(Game game, Move move)
+void makeMove(Game game, Move move)
+boolean checkDraw(Game game)
+int getNextPlayerIndex(Game game)
+}
+
+class BotPlayingStrategyFactory{
++ BotPlayingStrategy createBotPlayingStrategy(BotDifficultyLevel botDifficultyLevel)
+}
+
+class GameController{
+- GameService gameService;
+void printBoard(Game game)
+Move getMove(Game game, Player currentPlayer, Scanner sc)
+void makeMove(Game game, Move move)
+int getNextPlayerIndex(Game game)
+}
+
+class TicTacToe {
++ static void main(String[] args)
+- static BotDifficultyLevel getBotDifficultyLevelFromInput( Scanner sc)
 }
 
 @enduml

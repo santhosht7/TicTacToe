@@ -12,7 +12,7 @@ import java.util.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class TIcTacToe {
+public class TicTacToe {
     public static void main(String[] args) {
         System.out.println("======= Tic Tac Toe =======");
         Scanner sc = new Scanner(System.in);
@@ -76,7 +76,6 @@ public class TIcTacToe {
 
             int nextIndex = controller.getNextPlayerIndex(game);
             game.setNextPlayerIndex(nextIndex);
-            controller.printBoard(game);
         }
 
         if(GameState.COMPLETED.equals(game.getGameState())){

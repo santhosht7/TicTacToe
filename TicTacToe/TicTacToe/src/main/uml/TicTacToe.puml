@@ -1,0 +1,122 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+
+class Game {
+- Board board
+- List<Player> players
+- GameState state
+- Player winner
+- List<Move> moves
+}
+
+enum GameState {
+IN-PROGRESS
+DRAW
+COMPLETED
+}
+Game ..> GameState
+Game *--> Board
+Game *--> Move
+Game o--> Player
+
+abstract class Player {
+- String name
+- Symbol symbol
+- PlayerType playerType
+}
+
+enum PlayerType {
+HUMAN
+BOT
+}
+Player ..> PlayerType
+
+class Board {
+- int size
+- List<List<Cell>> cells
+
++ void printBoard()
+}
+
+class Cell {
+- int row
+- int column
+- Player player
+- CellState cellState
+
++ void clearCell()
+}
+
+enum CellState {
+FILLED
+EMPTY
+BLOCKED
+}
+Cell ..> CellState
+Cell o--> Player
+
+class BotPlayer extends Player {
+- BotDifficultyLevel level
+}
+
+
+class HumanPlayer extends Player {
+}
+
+class Move {
+- Cell cell
+- Player player
+}
+Move --> Cell
+Move --> Player
+
+class Symbol {
+- char character
+- String color
+}
+Player --> Symbol
+
+enum BotDifficultyLevel {
+EASY
+MEDIUM
+HARD
+}
+BotPlayer ..> BotDifficultyLevel
+
+
+interface BotPlayingStrategy {
++ Move getMove(Board board, Player player)
+}
+
+class EasyBotPlayingStrategy implements BotPlayingStrategy {
++ Move getMove(Board board, Player player)
+}
+
+class MediumBotPlayingStrategy implements BotPlayingStrategy {
++ Move getMove(Board board, Player player)
+}
+
+class HardBotPlayingStrategy implements BotPlayingStrategy {
++ Move getMove(Board board, Player player)
+}
+
+
+interface WinningStrategy {
++ boolean checkWinner(Board board, Move move)
+}
+
+class RowWinningStrategy implements WinningStrategy {
++ boolean checkWinner(Board board, Move move)
+}
+
+class ColumnWinningStrategy implements WinningStrategy {
++ boolean checkWinner(Board board, Move move)
+}
+
+class DiagonalWinningStrategy implements WinningStrategy {
++ boolean checkWinner(Board board, Move move)
+}
+
+@enduml

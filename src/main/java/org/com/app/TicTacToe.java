@@ -77,6 +77,7 @@ public class TicTacToe {
             int nextIndex = controller.getNextPlayerIndex(game);
             game.setNextPlayerIndex(nextIndex);
         }
+        controller.printBoard(game);
 
         if(GameState.COMPLETED.equals(game.getGameState())){
             System.out.println("Winner Winner Chicken Dinner, "+game.getWinner()+" won the game");
